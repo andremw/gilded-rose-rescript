@@ -32,4 +32,14 @@ describe("Gilded Rose", () => {
 
     [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 11}])
   })
+
+  test("Sulfuras quality is 80 and it never changes", () => {
+    let item: Item.t = {
+      sellIn: 1,
+      quality: 80,
+      name: "Sulfuras, Hand of Ragnaros",
+    }
+
+    [item]->updateQuality->expect->toEqual([{...item, sellIn: 1, quality: 80}])
+  })
 })

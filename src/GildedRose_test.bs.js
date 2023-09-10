@@ -38,6 +38,17 @@ Jest.describe("Gilded Rose", (function (param) {
                               quality: 11
                             }]);
               }));
+        Jest.test("Sulfuras quality is 80 and it never changes", (function (param) {
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                      name: "Sulfuras, Hand of Ragnaros",
+                                      sellIn: 1,
+                                      quality: 80
+                                    }])), [{
+                              name: "Sulfuras, Hand of Ragnaros",
+                              sellIn: 1,
+                              quality: 80
+                            }]);
+              }));
       }));
 
 /*  Not a pure module */

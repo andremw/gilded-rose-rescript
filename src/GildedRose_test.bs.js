@@ -16,6 +16,17 @@ Jest.describe("Gilded Rose", (function (param) {
                               quality: 0
                             }]);
               }));
+        Jest.test("after sellIn expires quality degrades twice as fast", (function (param) {
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                      name: "Whatever",
+                                      sellIn: 0,
+                                      quality: 10
+                                    }])), [{
+                              name: "Whatever",
+                              sellIn: -1,
+                              quality: 8
+                            }]);
+              }));
       }));
 
 /*  Not a pure module */

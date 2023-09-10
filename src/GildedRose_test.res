@@ -12,4 +12,14 @@ describe("Gilded Rose", () => {
 
     [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 0}])
   })
+
+  test("after sellIn expires quality degrades twice as fast", () => {
+    let item: Item.t = {
+      sellIn: 0,
+      quality: 10,
+      name: "Whatever",
+    }
+
+    [item]->updateQuality->expect->toEqual([{...item, sellIn: -1, quality: 8}])
+  })
 })

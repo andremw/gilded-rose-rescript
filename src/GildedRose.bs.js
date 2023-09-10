@@ -18,6 +18,10 @@ function upTo50(__x) {
   return Math.min(50, __x);
 }
 
+function min0(__x) {
+  return Math.max(0, __x);
+}
+
 function updateQuality(items) {
   return items.map(function (item) {
               var newItem = item;
@@ -51,83 +55,14 @@ function updateQuality(items) {
                     newItem = newItem;
                     break;
                 default:
-                  if (newItem.name !== "Aged Brie" && newItem.name !== "Backstage passes to a TAFKAL80ETC concert") {
-                    if (newItem.quality > 0 && newItem.name !== "Sulfuras, Hand of Ragnaros") {
-                      var init$2 = newItem;
-                      newItem = {
-                        name: init$2.name,
-                        sellIn: init$2.sellIn,
-                        quality: newItem.quality - 1 | 0
-                      };
-                    }
-                    
-                  } else if (newItem.quality < 50) {
-                    var init$3 = newItem;
-                    newItem = {
-                      name: init$3.name,
-                      sellIn: init$3.sellIn,
-                      quality: newItem.quality + 1 | 0
-                    };
-                    if (newItem.name === "Backstage passes to a TAFKAL80ETC concert") {
-                      if (newItem.sellIn < 11 && newItem.quality < 50) {
-                        var init$4 = newItem;
-                        newItem = {
-                          name: init$4.name,
-                          sellIn: init$4.sellIn,
-                          quality: newItem.quality + 1 | 0
-                        };
-                      }
-                      if (newItem.sellIn < 6 && newItem.quality < 50) {
-                        var init$5 = newItem;
-                        newItem = {
-                          name: init$5.name,
-                          sellIn: init$5.sellIn,
-                          quality: newItem.quality + 1 | 0
-                        };
-                      }
-                      
-                    }
-                    
-                  }
-                  if (newItem.name !== "Sulfuras, Hand of Ragnaros") {
-                    var init$6 = newItem;
-                    newItem = {
-                      name: init$6.name,
-                      sellIn: newItem.sellIn - 1 | 0,
-                      quality: init$6.quality
-                    };
-                  }
-                  if (newItem.sellIn < 0) {
-                    if (newItem.name !== "Aged Brie") {
-                      if (newItem.name !== "Backstage passes to a TAFKAL80ETC concert") {
-                        if (newItem.quality > 0 && newItem.name !== "Sulfuras, Hand of Ragnaros") {
-                          var init$7 = newItem;
-                          newItem = {
-                            name: init$7.name,
-                            sellIn: init$7.sellIn,
-                            quality: newItem.quality - 1 | 0
-                          };
-                        }
-                        
-                      } else {
-                        var init$8 = newItem;
-                        newItem = {
-                          name: init$8.name,
-                          sellIn: init$8.sellIn,
-                          quality: newItem.quality - newItem.quality | 0
-                        };
-                      }
-                    } else if (newItem.quality < 50) {
-                      var init$9 = newItem;
-                      newItem = {
-                        name: init$9.name,
-                        sellIn: init$9.sellIn,
-                        quality: newItem.quality + 1 | 0
-                      };
-                    }
-                    
-                  }
-                  
+                  var init$2 = newItem;
+                  var match$3 = newItem.sellIn;
+                  var match$4 = newItem.quality;
+                  newItem = {
+                    name: init$2.name,
+                    sellIn: newItem.sellIn - 1 | 0,
+                    quality: match$3 !== 0 ? Math.max(0, match$4 - 1 | 0) : newItem.quality - 2 | 0
+                  };
               }
               return newItem;
             });
@@ -135,5 +70,6 @@ function updateQuality(items) {
 
 exports.Item = Item;
 exports.upTo50 = upTo50;
+exports.min0 = min0;
 exports.updateQuality = updateQuality;
 /* No side effect */

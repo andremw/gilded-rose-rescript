@@ -83,6 +83,17 @@ Jest.describe("Gilded Rose", (function (param) {
                                       quality: 12
                                     }]);
                       }));
+                Jest.test("quality increases by 3 if 0 < sellIn <= 5", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                              name: "Backstage passes to a TAFKAL80ETC concert",
+                                              sellIn: 5,
+                                              quality: 10
+                                            }])), [{
+                                      name: "Backstage passes to a TAFKAL80ETC concert",
+                                      sellIn: 4,
+                                      quality: 13
+                                    }]);
+                      }));
               }));
       }));
 

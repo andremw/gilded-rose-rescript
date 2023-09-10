@@ -49,6 +49,19 @@ Jest.describe("Gilded Rose", (function (param) {
                               quality: 80
                             }]);
               }));
+        Jest.describe("Backstage passes", (function (param) {
+                Jest.test("quality drops to 0 after sellIn expires", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                              name: "Backstage passes to a TAFKAL80ETC concert",
+                                              sellIn: 0,
+                                              quality: 10
+                                            }])), [{
+                                      name: "Backstage passes to a TAFKAL80ETC concert",
+                                      sellIn: -1,
+                                      quality: 0
+                                    }]);
+                      }));
+              }));
       }));
 
 /*  Not a pure module */

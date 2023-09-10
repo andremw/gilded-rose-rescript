@@ -42,4 +42,19 @@ describe("Gilded Rose", () => {
 
     [item]->updateQuality->expect->toEqual([{...item, sellIn: 1, quality: 80}])
   })
+
+  describe("Backstage passes", () => {
+    test(
+      "quality drops to 0 after sellIn expires",
+      () => {
+        let item: Item.t = {
+          sellIn: 0,
+          quality: 10,
+          name: "Backstage passes to a TAFKAL80ETC concert",
+        }
+
+        [item]->updateQuality->expect->toEqual([{...item, sellIn: -1, quality: 0}])
+      },
+    )
+  })
 })

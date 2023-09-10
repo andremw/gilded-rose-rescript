@@ -38,6 +38,17 @@ Jest.describe("Gilded Rose", (function (param) {
                               quality: 11
                             }]);
               }));
+        Jest.test("Aged Brie's quality does not go over 50", (function (param) {
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                      name: "Aged Brie",
+                                      sellIn: 1,
+                                      quality: 50
+                                    }])), [{
+                              name: "Aged Brie",
+                              sellIn: 0,
+                              quality: 50
+                            }]);
+              }));
         Jest.test("Sulfuras quality is 80 and it never changes", (function (param) {
                 return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
                                       name: "Sulfuras, Hand of Ragnaros",

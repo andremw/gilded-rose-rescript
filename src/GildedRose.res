@@ -23,6 +23,7 @@ let updateQuality = (items: array<Item.t>) => {
           sellIn: newItem.contents.sellIn - 1,
           quality: Js.Math.min_int(50, newItem.contents.quality + 1),
         }
+    | "Sulfuras, Hand of Ragnaros" => newItem := newItem.contents
     | _ =>
       if (
         newItem.contents.name != "Aged Brie" &&

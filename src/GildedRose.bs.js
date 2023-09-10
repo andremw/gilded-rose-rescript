@@ -24,47 +24,39 @@ function min0(__x) {
 
 function updateQuality(items) {
   return items.map(function (item) {
-              var newItem = item;
-              var match = newItem.name;
+              var match = item.name;
               switch (match) {
                 case "Aged Brie" :
-                    var init = newItem;
-                    newItem = {
-                      name: init.name,
-                      sellIn: newItem.sellIn - 1 | 0,
-                      quality: Math.min(50, newItem.quality + 1 | 0)
-                    };
-                    break;
+                    return {
+                            name: item.name,
+                            sellIn: item.sellIn - 1 | 0,
+                            quality: Math.min(50, item.quality + 1 | 0)
+                          };
                 case "Backstage passes to a TAFKAL80ETC concert" :
-                    var init$1 = newItem;
-                    var match$1 = newItem.sellIn;
-                    var match$2 = newItem.quality;
-                    newItem = {
-                      name: init$1.name,
-                      sellIn: newItem.sellIn - 1 | 0,
-                      quality: match$2 !== 50 ? (
-                          match$1 !== 0 ? (
-                              match$1 <= 5 ? Math.min(50, match$2 + 3 | 0) : (
-                                  match$1 <= 10 ? Math.min(50, match$2 + 2 | 0) : Math.min(50, match$2 + 1 | 0)
-                                )
-                            ) : 0
-                        ) : 50
-                    };
-                    break;
+                    var match$1 = item.sellIn;
+                    var match$2 = item.quality;
+                    return {
+                            name: item.name,
+                            sellIn: item.sellIn - 1 | 0,
+                            quality: match$2 !== 50 ? (
+                                match$1 !== 0 ? (
+                                    match$1 <= 5 ? Math.min(50, match$2 + 3 | 0) : (
+                                        match$1 <= 10 ? Math.min(50, match$2 + 2 | 0) : Math.min(50, match$2 + 1 | 0)
+                                      )
+                                  ) : 0
+                              ) : 50
+                          };
                 case "Sulfuras, Hand of Ragnaros" :
-                    newItem = newItem;
-                    break;
+                    return item;
                 default:
-                  var init$2 = newItem;
-                  var match$3 = newItem.sellIn;
-                  var match$4 = newItem.quality;
-                  newItem = {
-                    name: init$2.name,
-                    sellIn: newItem.sellIn - 1 | 0,
-                    quality: match$3 !== 0 ? Math.max(0, match$4 - 1 | 0) : newItem.quality - 2 | 0
-                  };
+                  var match$3 = item.sellIn;
+                  var match$4 = item.quality;
+                  return {
+                          name: item.name,
+                          sellIn: item.sellIn - 1 | 0,
+                          quality: match$3 !== 0 ? Math.max(0, match$4 - 1 | 0) : item.quality - 2 | 0
+                        };
               }
-              return newItem;
             });
 }
 

@@ -22,4 +22,14 @@ describe("Gilded Rose", () => {
 
     [item]->updateQuality->expect->toEqual([{...item, sellIn: -1, quality: 8}])
   })
+
+  test("Aged Brie's quality increases as the days go by", () => {
+    let item: Item.t = {
+      sellIn: 1,
+      quality: 10,
+      name: "Aged Brie",
+    }
+
+    [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 11}])
+  })
 })

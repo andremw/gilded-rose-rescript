@@ -27,6 +27,17 @@ Jest.describe("Gilded Rose", (function (param) {
                               quality: 8
                             }]);
               }));
+        Jest.test("Aged Brie's quality increases as the days go by", (function (param) {
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                      name: "Aged Brie",
+                                      sellIn: 1,
+                                      quality: 10
+                                    }])), [{
+                              name: "Aged Brie",
+                              sellIn: 0,
+                              quality: 11
+                            }]);
+              }));
       }));
 
 /*  Not a pure module */

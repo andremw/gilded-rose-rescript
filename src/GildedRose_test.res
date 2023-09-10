@@ -105,5 +105,18 @@ describe("Gilded Rose", () => {
         [item]->updateQuality->expect->toEqual([{...item, sellIn: 4, quality: 13}])
       },
     )
+
+    test(
+      "quality does not go over 50",
+      () => {
+        let item: Item.t = {
+          sellIn: 5,
+          quality: 48,
+          name: "Backstage passes to a TAFKAL80ETC concert",
+        }
+
+        [item]->updateQuality->expect->toEqual([{...item, sellIn: 4, quality: 50}])
+      },
+    )
   })
 })

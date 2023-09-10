@@ -14,6 +14,10 @@ var Item = {
   make: make
 };
 
+function upTo50(__x) {
+  return Math.min(50, __x);
+}
+
 function updateQuality(items) {
   return items.map(function (item) {
               var newItem = item;
@@ -27,41 +31,57 @@ function updateQuality(items) {
                       quality: Math.min(50, newItem.quality + 1 | 0)
                     };
                     break;
+                case "Backstage passes to a TAFKAL80ETC concert" :
+                    var init$1 = newItem;
+                    var match$1 = newItem.sellIn;
+                    var match$2 = newItem.quality;
+                    newItem = {
+                      name: init$1.name,
+                      sellIn: newItem.sellIn - 1 | 0,
+                      quality: match$2 !== 50 ? (
+                          match$1 !== 0 ? (
+                              match$1 <= 5 ? Math.min(50, match$2 + 3 | 0) : (
+                                  match$1 <= 10 ? Math.min(50, match$2 + 2 | 0) : Math.min(50, match$2 + 1 | 0)
+                                )
+                            ) : 0
+                        ) : 50
+                    };
+                    break;
                 case "Sulfuras, Hand of Ragnaros" :
                     newItem = newItem;
                     break;
                 default:
                   if (newItem.name !== "Aged Brie" && newItem.name !== "Backstage passes to a TAFKAL80ETC concert") {
                     if (newItem.quality > 0 && newItem.name !== "Sulfuras, Hand of Ragnaros") {
-                      var init$1 = newItem;
+                      var init$2 = newItem;
                       newItem = {
-                        name: init$1.name,
-                        sellIn: init$1.sellIn,
+                        name: init$2.name,
+                        sellIn: init$2.sellIn,
                         quality: newItem.quality - 1 | 0
                       };
                     }
                     
                   } else if (newItem.quality < 50) {
-                    var init$2 = newItem;
+                    var init$3 = newItem;
                     newItem = {
-                      name: init$2.name,
-                      sellIn: init$2.sellIn,
+                      name: init$3.name,
+                      sellIn: init$3.sellIn,
                       quality: newItem.quality + 1 | 0
                     };
                     if (newItem.name === "Backstage passes to a TAFKAL80ETC concert") {
                       if (newItem.sellIn < 11 && newItem.quality < 50) {
-                        var init$3 = newItem;
-                        newItem = {
-                          name: init$3.name,
-                          sellIn: init$3.sellIn,
-                          quality: newItem.quality + 1 | 0
-                        };
-                      }
-                      if (newItem.sellIn < 6 && newItem.quality < 50) {
                         var init$4 = newItem;
                         newItem = {
                           name: init$4.name,
                           sellIn: init$4.sellIn,
+                          quality: newItem.quality + 1 | 0
+                        };
+                      }
+                      if (newItem.sellIn < 6 && newItem.quality < 50) {
+                        var init$5 = newItem;
+                        newItem = {
+                          name: init$5.name,
+                          sellIn: init$5.sellIn,
                           quality: newItem.quality + 1 | 0
                         };
                       }
@@ -70,38 +90,38 @@ function updateQuality(items) {
                     
                   }
                   if (newItem.name !== "Sulfuras, Hand of Ragnaros") {
-                    var init$5 = newItem;
+                    var init$6 = newItem;
                     newItem = {
-                      name: init$5.name,
+                      name: init$6.name,
                       sellIn: newItem.sellIn - 1 | 0,
-                      quality: init$5.quality
+                      quality: init$6.quality
                     };
                   }
                   if (newItem.sellIn < 0) {
                     if (newItem.name !== "Aged Brie") {
                       if (newItem.name !== "Backstage passes to a TAFKAL80ETC concert") {
                         if (newItem.quality > 0 && newItem.name !== "Sulfuras, Hand of Ragnaros") {
-                          var init$6 = newItem;
+                          var init$7 = newItem;
                           newItem = {
-                            name: init$6.name,
-                            sellIn: init$6.sellIn,
+                            name: init$7.name,
+                            sellIn: init$7.sellIn,
                             quality: newItem.quality - 1 | 0
                           };
                         }
                         
                       } else {
-                        var init$7 = newItem;
+                        var init$8 = newItem;
                         newItem = {
-                          name: init$7.name,
-                          sellIn: init$7.sellIn,
+                          name: init$8.name,
+                          sellIn: init$8.sellIn,
                           quality: newItem.quality - newItem.quality | 0
                         };
                       }
                     } else if (newItem.quality < 50) {
-                      var init$8 = newItem;
+                      var init$9 = newItem;
                       newItem = {
-                        name: init$8.name,
-                        sellIn: init$8.sellIn,
+                        name: init$9.name,
+                        sellIn: init$9.sellIn,
                         quality: newItem.quality + 1 | 0
                       };
                     }
@@ -114,5 +134,6 @@ function updateQuality(items) {
 }
 
 exports.Item = Item;
+exports.upTo50 = upTo50;
 exports.updateQuality = updateQuality;
 /* No side effect */

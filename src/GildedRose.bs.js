@@ -24,8 +24,8 @@ function min0(__x) {
 
 function updateQuality(items) {
   return items.map(function (item) {
-              var name = item.name;
-              switch (name) {
+              var match = item.name;
+              switch (match) {
                 case "Aged Brie" :
                     return {
                             name: item.name,
@@ -33,15 +33,15 @@ function updateQuality(items) {
                             quality: Math.min(50, item.quality + 1 | 0)
                           };
                 case "Backstage passes to a TAFKAL80ETC concert" :
-                    var match = item.sellIn;
-                    var match$1 = item.quality;
+                    var match$1 = item.sellIn;
+                    var match$2 = item.quality;
                     return {
                             name: item.name,
                             sellIn: item.sellIn - 1 | 0,
-                            quality: match$1 !== 50 ? (
-                                match !== 0 ? (
-                                    match <= 5 ? Math.min(50, match$1 + 3 | 0) : (
-                                        match <= 10 ? Math.min(50, match$1 + 2 | 0) : Math.min(50, match$1 + 1 | 0)
+                            quality: match$2 !== 50 ? (
+                                match$1 !== 0 ? (
+                                    match$1 <= 5 ? Math.min(50, match$2 + 3 | 0) : (
+                                        match$1 <= 10 ? Math.min(50, match$2 + 2 | 0) : Math.min(50, match$2 + 1 | 0)
                                       )
                                   ) : 0
                               ) : 50
@@ -49,21 +49,13 @@ function updateQuality(items) {
                 case "Sulfuras, Hand of Ragnaros" :
                     return item;
                 default:
-                  if (name.startsWith("Conjured")) {
-                    var match$2 = item.sellIn;
-                    var match$3 = item.quality;
-                    return {
-                            name: item.name,
-                            sellIn: item.sellIn - 1 | 0,
-                            quality: match$2 !== 0 ? Math.max(0, match$3 - 2 | 0) : item.quality - 4 | 0
-                          };
-                  }
-                  var match$4 = item.sellIn;
-                  var match$5 = item.quality;
+                  var degradationRate = item.name.startsWith("Conjured") ? 2 : 1;
+                  var match$3 = item.sellIn;
+                  var match$4 = item.quality;
                   return {
                           name: item.name,
                           sellIn: item.sellIn - 1 | 0,
-                          quality: match$4 !== 0 ? Math.max(0, match$5 - 1 | 0) : item.quality - 2 | 0
+                          quality: match$3 !== 0 ? Math.max(0, match$4 - (degradationRate << 0) | 0) : item.quality - (degradationRate << 1) | 0
                         };
               }
             });

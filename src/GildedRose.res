@@ -35,21 +35,15 @@ let updateQuality = (items: array<Item.t>) => {
         | (_, quality) => upTo50(quality + 1)
         },
       }
-    | name if name->Js.String2.startsWith("Conjured") => {
-        ...item,
-        sellIn: item.sellIn - 1,
-        // TODO: improve this to always be twice as fast as normal items
-        quality: switch (item.sellIn, item.quality) {
-        | (0, _) => item.quality - 4
-        | (_, quality) => min0(quality - 2)
-        },
-      }
-    | _ => {
+    | _ =>
+      let degradationRate = item.name->Js.String2.startsWith("Conjured") ? 2 : 1
+
+      {
         ...item,
         sellIn: item.sellIn - 1,
         quality: switch (item.sellIn, item.quality) {
-        | (0, _) => item.quality - 2
-        | (_, quality) => min0(quality - 1)
+        | (0, _) => item.quality - 2 * degradationRate
+        | (_, quality) => min0(quality - 1 * degradationRate)
         },
       }
     }

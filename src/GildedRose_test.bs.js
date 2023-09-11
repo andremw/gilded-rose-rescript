@@ -129,6 +129,17 @@ Jest.describe("Gilded Rose", (function (param) {
                                       quality: 8
                                     }]);
                       }));
+                Jest.test("quality degrades super fast after expiring", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                              name: "Conjured Mana Cake",
+                                              sellIn: 0,
+                                              quality: 10
+                                            }])), [{
+                                      name: "Conjured Mana Cake",
+                                      sellIn: -1,
+                                      quality: 6
+                                    }]);
+                      }));
               }));
       }));
 

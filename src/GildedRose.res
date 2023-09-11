@@ -35,6 +35,14 @@ let updateQuality = (items: array<Item.t>) => {
         | (_, quality) => upTo50(quality + 1)
         },
       }
+    | name if name->Js.String2.startsWith("Conjured") => {
+        ...item,
+        sellIn: item.sellIn - 1,
+        quality: switch (item.sellIn, item.quality) {
+        | (0, _) => item.quality - 4
+        | (_, quality) => min0(quality - 2)
+        },
+      }
     | _ => {
         ...item,
         sellIn: item.sellIn - 1,

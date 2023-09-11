@@ -117,6 +117,19 @@ Jest.describe("Gilded Rose", (function (param) {
                                     }]);
                       }));
               }));
+        Jest.describe("Conjured item", (function (param) {
+                Jest.test("Quality degrades twice as fast as normal items", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
+                                              name: "Conjured Mana Cake",
+                                              sellIn: 1,
+                                              quality: 10
+                                            }])), [{
+                                      name: "Conjured Mana Cake",
+                                      sellIn: 0,
+                                      quality: 8
+                                    }]);
+                      }));
+              }));
       }));
 
 /*  Not a pure module */

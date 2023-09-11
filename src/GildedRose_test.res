@@ -119,4 +119,19 @@ describe("Gilded Rose", () => {
       },
     )
   })
+
+  describe("Conjured item", () => {
+    test(
+      "Quality degrades twice as fast as normal items",
+      () => {
+        let item: Item.t = {
+          sellIn: 1,
+          quality: 10,
+          name: "Conjured Mana Cake",
+        }
+
+        [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 8}])
+      },
+    )
+  })
 })

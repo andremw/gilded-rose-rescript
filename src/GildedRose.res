@@ -38,6 +38,7 @@ let updateQuality = (items: array<Item.t>) => {
     | name if name->Js.String2.startsWith("Conjured") => {
         ...item,
         sellIn: item.sellIn - 1,
+        // TODO: improve this to always be twice as fast as normal items
         quality: switch (item.sellIn, item.quality) {
         | (0, _) => item.quality - 4
         | (_, quality) => min0(quality - 2)

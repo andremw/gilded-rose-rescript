@@ -3,6 +3,116 @@ open Expect
 open GildedRose
 
 describe("Gilded Rose", () => {
+  describe("Item", () => {
+    test(
+      "converts item to AgedBrie",
+      () => {
+        let item: Item.t = {
+          sellIn: 1,
+          quality: 1,
+          name: "Aged Brie",
+        }
+
+        item
+        ->Item.toDomain
+        ->expect
+        ->toEqual(
+          AgedBrie({
+            sellIn: 1,
+            quality: 1,
+            name: "Aged Brie",
+          }),
+        )
+      },
+    )
+
+    test(
+      "converts item to Sulfuras",
+      () => {
+        let item: Item.t = {
+          sellIn: 1,
+          quality: 1,
+          name: "Sulfuras, Hand of Ragnaros",
+        }
+
+        item
+        ->Item.toDomain
+        ->expect
+        ->toEqual(
+          Sulfuras({
+            name: "Sulfuras, Hand of Ragnaros",
+          }),
+        )
+      },
+    )
+
+    test(
+      "converts item to BackstagePass",
+      () => {
+        let item: Item.t = {
+          sellIn: 1,
+          quality: 1,
+          name: "Backstage passes to a TAFKAL80ETC concert",
+        }
+
+        item
+        ->Item.toDomain
+        ->expect
+        ->toEqual(
+          BackstagePasses({
+            sellIn: 1,
+            quality: 1,
+            name: "Backstage passes to a TAFKAL80ETC concert",
+          }),
+        )
+      },
+    )
+
+    test(
+      "converts item to Conjured",
+      () => {
+        let item: Item.t = {
+          sellIn: 1,
+          quality: 1,
+          name: "Conjured Mana Cake",
+        }
+
+        item
+        ->Item.toDomain
+        ->expect
+        ->toEqual(
+          Conjured({
+            sellIn: 1,
+            quality: 1,
+            name: "Conjured Mana Cake",
+          }),
+        )
+      },
+    )
+
+    test(
+      "converts item to Other",
+      () => {
+        let item: Item.t = {
+          sellIn: 1,
+          quality: 1,
+          name: "Whatever",
+        }
+
+        item
+        ->Item.toDomain
+        ->expect
+        ->toEqual(
+          Other({
+            sellIn: 1,
+            quality: 1,
+            name: "Whatever",
+          }),
+        )
+      },
+    )
+  })
+
   test("quality cannot be lower than 0", () => {
     let item: Item.t = {
       sellIn: 1,

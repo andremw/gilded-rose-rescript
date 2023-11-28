@@ -2,18 +2,6 @@
 'use strict';
 
 
-function make(name, sellIn, quality) {
-  return {
-          name: name,
-          sellIn: sellIn,
-          quality: quality
-        };
-}
-
-var Item = {
-  make: make
-};
-
 function upTo50(__x) {
   return Math.min(50, __x);
 }
@@ -22,7 +10,113 @@ function min0(__x) {
   return Math.max(0, __x);
 }
 
-function updateQuality(items) {
+function updateQuality(item) {
+  switch (item.TAG | 0) {
+    case /* AgedBrie */0 :
+        return {
+                TAG: /* AgedBrie */0,
+                name: item.name,
+                sellIn: item.sellIn - 1 | 0,
+                quality: Math.min(50, item.quality + 1 | 0)
+              };
+    case /* Sulfuras */1 :
+        return item;
+    case /* BackstagePasses */2 :
+        var quality = item.quality;
+        var sellIn = item.sellIn;
+        return {
+                TAG: /* BackstagePasses */2,
+                name: item.name,
+                sellIn: sellIn - 1 | 0,
+                quality: quality !== 50 ? (
+                    sellIn !== 0 ? (
+                        sellIn <= 5 ? Math.min(50, quality + 3 | 0) : (
+                            sellIn <= 10 ? Math.min(50, quality + 2 | 0) : Math.min(50, quality + 1 | 0)
+                          )
+                      ) : 0
+                  ) : 50
+              };
+    case /* Conjured */3 :
+        var quality$1 = item.quality;
+        var sellIn$1 = item.sellIn;
+        return {
+                TAG: /* Conjured */3,
+                name: item.name,
+                sellIn: sellIn$1 - 1 | 0,
+                quality: sellIn$1 !== 0 ? Math.max(0, quality$1 - 2 | 0) : quality$1 - 4 | 0
+              };
+    case /* Other */4 :
+        var quality$2 = item.quality;
+        var sellIn$2 = item.sellIn;
+        return {
+                TAG: /* Other */4,
+                name: item.name,
+                sellIn: sellIn$2 - 1 | 0,
+                quality: sellIn$2 !== 0 ? Math.max(0, quality$2 - 1 | 0) : quality$2 - 2 | 0
+              };
+    
+  }
+}
+
+var Domain = {
+  updateQuality: updateQuality
+};
+
+function make(name, sellIn, quality) {
+  return {
+          name: name,
+          sellIn: sellIn,
+          quality: quality
+        };
+}
+
+function toDomain(item) {
+  var name = item.name;
+  switch (name) {
+    case "Aged Brie" :
+        return {
+                TAG: /* AgedBrie */0,
+                name: item.name,
+                sellIn: item.sellIn,
+                quality: item.quality
+              };
+    case "Backstage passes to a TAFKAL80ETC concert" :
+        return {
+                TAG: /* BackstagePasses */2,
+                name: item.name,
+                sellIn: item.sellIn,
+                quality: item.quality
+              };
+    case "Sulfuras, Hand of Ragnaros" :
+        return {
+                TAG: /* Sulfuras */1,
+                name: item.name
+              };
+    default:
+      if (name.startsWith("Conjured")) {
+        return {
+                TAG: /* Conjured */3,
+                name: item.name,
+                sellIn: item.sellIn,
+                quality: item.quality
+              };
+      } else {
+        return {
+                TAG: /* Other */4,
+                name: item.name,
+                sellIn: item.sellIn,
+                quality: item.quality
+              };
+      }
+  }
+}
+
+var Item = {
+  make: make,
+  toDomain: toDomain
+};
+
+function updateQuality$1(items) {
   return items.map(function (item) {
               var match = item.name;
               switch (match) {
@@ -61,8 +155,9 @@ function updateQuality(items) {
             });
 }
 
-exports.Item = Item;
 exports.upTo50 = upTo50;
 exports.min0 = min0;
-exports.updateQuality = updateQuality;
+exports.Domain = Domain;
+exports.Item = Item;
+exports.updateQuality = updateQuality$1;
 /* No side effect */

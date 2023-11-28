@@ -5,6 +5,66 @@ var Jest = require("@glennsl/rescript-jest/src/jest.bs.js");
 var GildedRose = require("./GildedRose.bs.js");
 
 Jest.describe("Gilded Rose", (function (param) {
+        Jest.describe("Item", (function (param) {
+                Jest.test("converts item to AgedBrie", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.Item.toDomain({
+                                            name: "Aged Brie",
+                                            sellIn: 1,
+                                            quality: 1
+                                          })), {
+                                    TAG: /* AgedBrie */0,
+                                    name: "Aged Brie",
+                                    sellIn: 1,
+                                    quality: 1
+                                  });
+                      }));
+                Jest.test("converts item to Sulfuras", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.Item.toDomain({
+                                            name: "Sulfuras, Hand of Ragnaros",
+                                            sellIn: 1,
+                                            quality: 1
+                                          })), {
+                                    TAG: /* Sulfuras */1,
+                                    name: "Sulfuras, Hand of Ragnaros"
+                                  });
+                      }));
+                Jest.test("converts item to BackstagePass", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.Item.toDomain({
+                                            name: "Backstage passes to a TAFKAL80ETC concert",
+                                            sellIn: 1,
+                                            quality: 1
+                                          })), {
+                                    TAG: /* BackstagePasses */2,
+                                    name: "Backstage passes to a TAFKAL80ETC concert",
+                                    sellIn: 1,
+                                    quality: 1
+                                  });
+                      }));
+                Jest.test("converts item to Conjured", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.Item.toDomain({
+                                            name: "Conjured Mana Cake",
+                                            sellIn: 1,
+                                            quality: 1
+                                          })), {
+                                    TAG: /* Conjured */3,
+                                    name: "Conjured Mana Cake",
+                                    sellIn: 1,
+                                    quality: 1
+                                  });
+                      }));
+                Jest.test("converts item to Other", (function (param) {
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.Item.toDomain({
+                                            name: "Whatever",
+                                            sellIn: 1,
+                                            quality: 1
+                                          })), {
+                                    TAG: /* Other */4,
+                                    name: "Whatever",
+                                    sellIn: 1,
+                                    quality: 1
+                                  });
+                      }));
+              }));
         Jest.test("quality cannot be lower than 0", (function (param) {
                 return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
                                       name: "Whatever",

@@ -120,7 +120,10 @@ describe("Gilded Rose", () => {
       name: "Whatever",
     }
 
-    [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 0}])
+    [item->Item.toDomain]
+    ->updateQuality
+    ->expect
+    ->toEqual([Other({name: "Whatever", sellIn: 0, quality: 0})])
   })
 
   test("after sellIn expires quality degrades twice as fast", () => {
@@ -130,7 +133,10 @@ describe("Gilded Rose", () => {
       name: "Whatever",
     }
 
-    [item]->updateQuality->expect->toEqual([{...item, sellIn: -1, quality: 8}])
+    [item->Item.toDomain]
+    ->updateQuality
+    ->expect
+    ->toEqual([Other({name: "Whatever", sellIn: -1, quality: 8})])
   })
 
   test("Aged Brie's quality increases as the days go by", () => {
@@ -140,7 +146,10 @@ describe("Gilded Rose", () => {
       name: "Aged Brie",
     }
 
-    [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 11}])
+    [item->Item.toDomain]
+    ->updateQuality
+    ->expect
+    ->toEqual([AgedBrie({name: "Aged Brie", sellIn: 0, quality: 11})])
   })
 
   test("Aged Brie's quality does not go over 50", () => {
@@ -150,7 +159,10 @@ describe("Gilded Rose", () => {
       name: "Aged Brie",
     }
 
-    [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 50}])
+    [item->Item.toDomain]
+    ->updateQuality
+    ->expect
+    ->toEqual([AgedBrie({name: "Aged Brie", sellIn: 0, quality: 50})])
   })
 
   test("Sulfuras quality is 80 and it never changes", () => {
@@ -160,7 +172,10 @@ describe("Gilded Rose", () => {
       name: "Sulfuras, Hand of Ragnaros",
     }
 
-    [item]->updateQuality->expect->toEqual([{...item, sellIn: 1, quality: 80}])
+    [item->Item.toDomain]
+    ->updateQuality
+    ->expect
+    ->toEqual([Sulfuras({name: "Sulfuras, Hand of Ragnaros"})])
   })
 
   describe("Backstage passes", () => {
@@ -173,7 +188,16 @@ describe("Gilded Rose", () => {
           name: "Backstage passes to a TAFKAL80ETC concert",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: -1, quality: 0}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([
+          BackstagePasses({
+            name: "Backstage passes to a TAFKAL80ETC concert",
+            sellIn: -1,
+            quality: 0,
+          }),
+        ])
       },
     )
 
@@ -186,7 +210,16 @@ describe("Gilded Rose", () => {
           name: "Backstage passes to a TAFKAL80ETC concert",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: 10, quality: 11}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([
+          BackstagePasses({
+            name: "Backstage passes to a TAFKAL80ETC concert",
+            sellIn: 10,
+            quality: 11,
+          }),
+        ])
       },
     )
 
@@ -199,7 +232,16 @@ describe("Gilded Rose", () => {
           name: "Backstage passes to a TAFKAL80ETC concert",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: 9, quality: 12}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([
+          BackstagePasses({
+            name: "Backstage passes to a TAFKAL80ETC concert",
+            sellIn: 9,
+            quality: 12,
+          }),
+        ])
       },
     )
 
@@ -212,7 +254,16 @@ describe("Gilded Rose", () => {
           name: "Backstage passes to a TAFKAL80ETC concert",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: 4, quality: 13}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([
+          BackstagePasses({
+            name: "Backstage passes to a TAFKAL80ETC concert",
+            sellIn: 4,
+            quality: 13,
+          }),
+        ])
       },
     )
 
@@ -225,7 +276,16 @@ describe("Gilded Rose", () => {
           name: "Backstage passes to a TAFKAL80ETC concert",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: 4, quality: 50}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([
+          BackstagePasses({
+            name: "Backstage passes to a TAFKAL80ETC concert",
+            sellIn: 4,
+            quality: 50,
+          }),
+        ])
       },
     )
   })
@@ -240,7 +300,10 @@ describe("Gilded Rose", () => {
           name: "Conjured Mana Cake",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: 0, quality: 8}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([Conjured({name: "Conjured Mana Cake", sellIn: 0, quality: 8})])
       },
     )
 
@@ -253,7 +316,10 @@ describe("Gilded Rose", () => {
           name: "Conjured Mana Cake",
         }
 
-        [item]->updateQuality->expect->toEqual([{...item, sellIn: -1, quality: 6}])
+        [item->Item.toDomain]
+        ->updateQuality
+        ->expect
+        ->toEqual([Conjured({name: "Conjured Mana Cake", sellIn: -1, quality: 6})])
       },
     )
   })

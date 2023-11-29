@@ -58,8 +58,22 @@ function updateQuality(item) {
   }
 }
 
+function toString(item) {
+  switch (item.TAG | 0) {
+    case /* Sulfuras */1 :
+        return "" + item.name + ", 0, 80";
+    case /* AgedBrie */0 :
+    case /* BackstagePasses */2 :
+    case /* Conjured */3 :
+    case /* Other */4 :
+        return "" + item.name + ", " + String(item.sellIn) + ", " + String(item.quality) + "";
+    
+  }
+}
+
 var Domain = {
-  updateQuality: updateQuality
+  updateQuality: updateQuality,
+  toString: toString
 };
 
 function make(name, sellIn, quality) {
@@ -117,42 +131,7 @@ var Item = {
 };
 
 function updateQuality$1(items) {
-  return items.map(function (item) {
-              var match = item.name;
-              switch (match) {
-                case "Aged Brie" :
-                    return {
-                            name: item.name,
-                            sellIn: item.sellIn - 1 | 0,
-                            quality: Math.min(50, item.quality + 1 | 0)
-                          };
-                case "Backstage passes to a TAFKAL80ETC concert" :
-                    var match$1 = item.sellIn;
-                    var match$2 = item.quality;
-                    return {
-                            name: item.name,
-                            sellIn: item.sellIn - 1 | 0,
-                            quality: match$2 !== 50 ? (
-                                match$1 !== 0 ? (
-                                    match$1 <= 5 ? Math.min(50, match$2 + 3 | 0) : (
-                                        match$1 <= 10 ? Math.min(50, match$2 + 2 | 0) : Math.min(50, match$2 + 1 | 0)
-                                      )
-                                  ) : 0
-                              ) : 50
-                          };
-                case "Sulfuras, Hand of Ragnaros" :
-                    return item;
-                default:
-                  var degradationRate = item.name.startsWith("Conjured") ? 2 : 1;
-                  var match$3 = item.sellIn;
-                  var match$4 = item.quality;
-                  return {
-                          name: item.name,
-                          sellIn: item.sellIn - 1 | 0,
-                          quality: match$3 !== 0 ? Math.max(0, match$4 - (degradationRate << 0) | 0) : item.quality - (degradationRate << 1) | 0
-                        };
-              }
-            });
+  return items.map(updateQuality);
 }
 
 exports.upTo50 = upTo50;

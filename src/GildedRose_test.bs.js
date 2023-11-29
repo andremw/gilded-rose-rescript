@@ -66,111 +66,119 @@ Jest.describe("Gilded Rose", (function (param) {
                       }));
               }));
         Jest.test("quality cannot be lower than 0", (function (param) {
-                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                      name: "Whatever",
-                                      sellIn: 1,
-                                      quality: 0
-                                    }])), [{
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                          name: "Whatever",
+                                          sellIn: 1,
+                                          quality: 0
+                                        })])), [{
+                              TAG: /* Other */4,
                               name: "Whatever",
                               sellIn: 0,
                               quality: 0
                             }]);
               }));
         Jest.test("after sellIn expires quality degrades twice as fast", (function (param) {
-                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                      name: "Whatever",
-                                      sellIn: 0,
-                                      quality: 10
-                                    }])), [{
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                          name: "Whatever",
+                                          sellIn: 0,
+                                          quality: 10
+                                        })])), [{
+                              TAG: /* Other */4,
                               name: "Whatever",
                               sellIn: -1,
                               quality: 8
                             }]);
               }));
         Jest.test("Aged Brie's quality increases as the days go by", (function (param) {
-                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                      name: "Aged Brie",
-                                      sellIn: 1,
-                                      quality: 10
-                                    }])), [{
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                          name: "Aged Brie",
+                                          sellIn: 1,
+                                          quality: 10
+                                        })])), [{
+                              TAG: /* AgedBrie */0,
                               name: "Aged Brie",
                               sellIn: 0,
                               quality: 11
                             }]);
               }));
         Jest.test("Aged Brie's quality does not go over 50", (function (param) {
-                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                      name: "Aged Brie",
-                                      sellIn: 1,
-                                      quality: 50
-                                    }])), [{
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                          name: "Aged Brie",
+                                          sellIn: 1,
+                                          quality: 50
+                                        })])), [{
+                              TAG: /* AgedBrie */0,
                               name: "Aged Brie",
                               sellIn: 0,
                               quality: 50
                             }]);
               }));
         Jest.test("Sulfuras quality is 80 and it never changes", (function (param) {
-                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                      name: "Sulfuras, Hand of Ragnaros",
-                                      sellIn: 1,
-                                      quality: 80
-                                    }])), [{
-                              name: "Sulfuras, Hand of Ragnaros",
-                              sellIn: 1,
-                              quality: 80
+                return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                          name: "Sulfuras, Hand of Ragnaros",
+                                          sellIn: 1,
+                                          quality: 80
+                                        })])), [{
+                              TAG: /* Sulfuras */1,
+                              name: "Sulfuras, Hand of Ragnaros"
                             }]);
               }));
         Jest.describe("Backstage passes", (function (param) {
                 Jest.test("quality drops to 0 after sellIn expires", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Backstage passes to a TAFKAL80ETC concert",
-                                              sellIn: 0,
-                                              quality: 10
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Backstage passes to a TAFKAL80ETC concert",
+                                                  sellIn: 0,
+                                                  quality: 10
+                                                })])), [{
+                                      TAG: /* BackstagePasses */2,
                                       name: "Backstage passes to a TAFKAL80ETC concert",
                                       sellIn: -1,
                                       quality: 0
                                     }]);
                       }));
                 Jest.test("quality increases by 1 when sellIn is more than 10", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Backstage passes to a TAFKAL80ETC concert",
-                                              sellIn: 11,
-                                              quality: 10
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Backstage passes to a TAFKAL80ETC concert",
+                                                  sellIn: 11,
+                                                  quality: 10
+                                                })])), [{
+                                      TAG: /* BackstagePasses */2,
                                       name: "Backstage passes to a TAFKAL80ETC concert",
                                       sellIn: 10,
                                       quality: 11
                                     }]);
                       }));
                 Jest.test("quality increases by 2 if 5 < sellIn <= 10", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Backstage passes to a TAFKAL80ETC concert",
-                                              sellIn: 10,
-                                              quality: 10
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Backstage passes to a TAFKAL80ETC concert",
+                                                  sellIn: 10,
+                                                  quality: 10
+                                                })])), [{
+                                      TAG: /* BackstagePasses */2,
                                       name: "Backstage passes to a TAFKAL80ETC concert",
                                       sellIn: 9,
                                       quality: 12
                                     }]);
                       }));
                 Jest.test("quality increases by 3 if 0 < sellIn <= 5", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Backstage passes to a TAFKAL80ETC concert",
-                                              sellIn: 5,
-                                              quality: 10
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Backstage passes to a TAFKAL80ETC concert",
+                                                  sellIn: 5,
+                                                  quality: 10
+                                                })])), [{
+                                      TAG: /* BackstagePasses */2,
                                       name: "Backstage passes to a TAFKAL80ETC concert",
                                       sellIn: 4,
                                       quality: 13
                                     }]);
                       }));
                 Jest.test("quality does not go over 50", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Backstage passes to a TAFKAL80ETC concert",
-                                              sellIn: 5,
-                                              quality: 48
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Backstage passes to a TAFKAL80ETC concert",
+                                                  sellIn: 5,
+                                                  quality: 48
+                                                })])), [{
+                                      TAG: /* BackstagePasses */2,
                                       name: "Backstage passes to a TAFKAL80ETC concert",
                                       sellIn: 4,
                                       quality: 50
@@ -179,22 +187,24 @@ Jest.describe("Gilded Rose", (function (param) {
               }));
         Jest.describe("Conjured item", (function (param) {
                 Jest.test("Quality degrades twice as fast as normal items", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Conjured Mana Cake",
-                                              sellIn: 1,
-                                              quality: 10
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Conjured Mana Cake",
+                                                  sellIn: 1,
+                                                  quality: 10
+                                                })])), [{
+                                      TAG: /* Conjured */3,
                                       name: "Conjured Mana Cake",
                                       sellIn: 0,
                                       quality: 8
                                     }]);
                       }));
                 Jest.test("quality degrades super fast after expiring", (function (param) {
-                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([{
-                                              name: "Conjured Mana Cake",
-                                              sellIn: 0,
-                                              quality: 10
-                                            }])), [{
+                        return Jest.Expect.toEqual(Jest.Expect.expect(GildedRose.updateQuality([GildedRose.Item.toDomain({
+                                                  name: "Conjured Mana Cake",
+                                                  sellIn: 0,
+                                                  quality: 10
+                                                })])), [{
+                                      TAG: /* Conjured */3,
                                       name: "Conjured Mana Cake",
                                       sellIn: -1,
                                       quality: 6

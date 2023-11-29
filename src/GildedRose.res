@@ -45,6 +45,17 @@ module Domain = {
         },
       })
     }
+
+  let toString = (item: item) => {
+    let toStr = string_of_int
+    switch item {
+    | AgedBrie({name, sellIn, quality}) => `${name}, ${sellIn->toStr}, ${quality->toStr}`
+    | Sulfuras({name}) => `${name}, 0, 80`
+    | BackstagePasses({name, sellIn, quality}) => `${name}, ${sellIn->toStr}, ${quality->toStr}`
+    | Conjured({name, sellIn, quality}) => `${name}, ${sellIn->toStr}, ${quality->toStr}`
+    | Other({name, sellIn, quality}) => `${name}, ${sellIn->toStr}, ${quality->toStr}`
+    }
+  }
 }
 
 module Item = {
@@ -95,37 +106,6 @@ module Item = {
   }
 }
 
-let updateQuality = (items: array<Item.t>) => {
-  items->Js.Array2.map(item => {
-    switch item.name {
-    | "Aged Brie" => {
-        ...item,
-        sellIn: item.sellIn - 1,
-        quality: upTo50(item.quality + 1),
-      }
-    | "Sulfuras, Hand of Ragnaros" => item
-    | "Backstage passes to a TAFKAL80ETC concert" => {
-        ...item,
-        sellIn: item.sellIn - 1,
-        quality: switch (item.sellIn, item.quality) {
-        | (_, 50) => 50
-        | (0, _) => 0
-        | (sellIn, quality) if sellIn <= 5 => upTo50(quality + 3)
-        | (sellIn, quality) if sellIn <= 10 => upTo50(quality + 2)
-        | (_, quality) => upTo50(quality + 1)
-        },
-      }
-    | _ =>
-      let degradationRate = item.name->Js.String2.startsWith("Conjured") ? 2 : 1
-
-      {
-        ...item,
-        sellIn: item.sellIn - 1,
-        quality: switch (item.sellIn, item.quality) {
-        | (0, _) => item.quality - 2 * degradationRate
-        | (_, quality) => min0(quality - 1 * degradationRate)
-        },
-      }
-    }
-  })
+let updateQuality = (items: array<Domain.item>) => {
+  items->Js.Array2.map(Domain.updateQuality)
 }
